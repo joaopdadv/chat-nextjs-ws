@@ -15,15 +15,29 @@ services:
   chat:
     container_name: chat
     build:
-      context: .
+      context: ./websocket-test
       dockerfile: Dockerfile
     env_file:
-      - .env
+      - ./websocket-test/.env
     command: pnpm run dev
     ports:
       - 3001:3001
     depends_on:
       - chat_db
+    networks:
+      - chat_nest
+
+  app:
+    container_name: app
+    build:
+      context: ./communication-test
+      dockerfile: Dockerfile
+    command: npm run dev
+    ports:
+      - 3000:3000
+    depends_on:
+      - chat_db
+      - chat
     networks:
       - chat_nest
 
