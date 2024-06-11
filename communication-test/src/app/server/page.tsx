@@ -1,4 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { type Metadata } from "next";
+
+export const revalidate = 60
+
+export const metadata: Metadata = {
+    title: 'Server Component',
+    description: 'Teste de server component usando docker container',
+};
+
 interface Message{
     id: string,
     message: string,
