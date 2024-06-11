@@ -1,6 +1,8 @@
 import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
+import { Button } from "~/components/ui/button";
+import Link from "next/link";
 
 export const metadata = {
   title: "Create T3 App",
@@ -15,7 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <nav className="fixed top-0 left-0 w-full bg-transparent p-4 text-white flex gap-8">
+          <Link href={'/'}>Home</Link>
+          <Link href={'/server'}>Server Component</Link>
+        </nav>
+
+        {children}
+      </body>
     </html>
   );
 }

@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { ScrollArea } from "~/components/ui/scroll-area";
@@ -22,6 +22,7 @@ class MessageObject{
 
 export default function HomePage() {
 
+  const chatMessageRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const [id, setId] = useState<string>('');
   const [receiverId, setReceiverId] = useState<string>('');
@@ -47,6 +48,12 @@ export default function HomePage() {
     };
   }, [id]);
 
+  useEffect(() => {
+    if (chatMessageRef.current) {
+      chatMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages])
+
   function send():void {
     if(receiverId.trim() == '' || text.trim() == ''){
       return;
@@ -69,10 +76,12 @@ export default function HomePage() {
 
       <div className="w-2/4 h-96 bg-white text-black flex justify-between flex-col p-4 rounded-xl">
           <ScrollArea className="h-full w-full rounded-md p-4">
-            {messages.map((e:MessageObject) => {
-
-              return <Message key={e.from} m={e} id={id}></Message>
-
+            {messages.map((e:MessageObject, index:number) => {
+              return (
+                <div key={index} ref={index === messages.length - 1 ? chatMessageRef : null}>
+                  <Message  m={e} id={id}/>
+                </div>
+              )
             })}
           </ScrollArea>
         <div className="flex gap-4">
