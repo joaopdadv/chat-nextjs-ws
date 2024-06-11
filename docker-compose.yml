@@ -33,6 +33,9 @@ services:
       context: ./communication-test
       dockerfile: Dockerfile
     command: npm run dev
+    environment:
+      - SERVER_API_URL=http://chat:3001
+      - PUBLIC_API_URL=http://localhost:3001
     ports:
       - 3000:3000
     depends_on:
