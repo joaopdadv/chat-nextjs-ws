@@ -17,8 +17,9 @@ interface Message{
 }
 
 async function ServerComponent() {
-    
-    const messages:Message[] = await fetch('http://chat:3001/messages').then(
+
+    const apiUrl = process.env.SERVER_API_URL;
+    const messages:Message[] = await fetch(`${apiUrl}/messages`).then(
         (res) => res.json()
     );
     

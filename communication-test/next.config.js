@@ -5,6 +5,10 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+    env: {
+        PUBLIC_API_URL: process.env.PUBLIC_API_URL,
+    },
+};
 
 export default config;

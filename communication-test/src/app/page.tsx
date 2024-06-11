@@ -21,6 +21,7 @@ class MessageObject{
 }
 
 export default function HomePage() {
+  const apiUrl = process.env.PUBLIC_API_URL;
 
   const chatMessageRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function HomePage() {
   const [messages, setMessages] = useState<MessageObject[]>([]);
 
   useEffect(() => {
-    socket = io('http://localhost:3001', {
+    socket = io(`${apiUrl}`, {
       query: { clientId: id },
     });
 
